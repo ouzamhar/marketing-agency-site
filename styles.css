@@ -10,6 +10,10 @@ body {
   line-height: 1.6;
 }
 
+/* ==================
+    Typography
+===================== */
+
 h1,
 h2,
 strong {
@@ -32,6 +36,8 @@ strong {
   margin-top: 1.25em;
 }
 
+/* buttons */
+
 .btn {
   padding: 0.5em 1.75em;
   font-weight: 700;
@@ -45,13 +51,133 @@ strong {
   justify-self: start;
 }
 
-/* =====================
+/* ==================
     general layout
-======================= */
+===================== */
 
 .main-grid {
   display: grid;
   grid-template-columns: minmax(1em, 1fr) minmax(0px, 500px) minmax(1em, 1fr);
+  grid-column-gap: 2em;
+}
+
+@media (min-width: 600px) {
+  .main-grid {
+    grid-template-columns: minmax(1em, 1fr) repeat(3, minmax(150px, 320px)) minmax(
+        1em,
+        1fr
+      );
+  }
+}
+
+/* navigation */
+
+.header {
+  background: black;
+}
+
+.header-home {
+  background: transparent;
+  position: absolute;
+  width: 100%;
+}
+
+.header-content {
+  display: flex;
+  grid-column: 2 / -2;
+}
+
+.logo-link {
+  background-color: #ffe600;
+  padding-top: 2em;
+}
+
+.nav {
+  position: fixed;
+  background: #000;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 100%;
+  transform: translateX(0);
+  transition: transform 250ms;
+}
+
+.navigation-open {
+  transform: translateX(-100%);
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #ffe600;
+}
+
+.close-nav {
+  border: 0;
+  background: 0;
+  color: #ffe600;
+  font-weight: 700;
+  font-size: 3rem;
+  cursor: pointer;
+  padding: 0.5em;
+  position: absolute;
+}
+
+.open-nav {
+  border: 0;
+  background: 0;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5em;
+  margin-left: auto;
+  font-size: 1.5em;
+}
+
+@media (min-width: 600px) {
+  .open-nav,
+  .close-nav {
+    display: none;
+  }
+
+  .nav {
+    position: initial;
+  }
+
+  .nav-list {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .nav-item {
+    margin-left: 2em;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
+
+  .header-home .nav {
+    background: transparent;
+  }
 }
 
 /* footer */
@@ -60,6 +186,10 @@ strong {
   background: #ebebeb;
   padding: 4em 0;
   text-align: center;
+
+  grid-template-areas:
+    ". social ."
+    ". main .";
 }
 
 .footer-main,
@@ -67,20 +197,32 @@ strong {
   grid-column: 2 / -2;
 }
 
-.footer-logo,
+.footer-logo {
+  opacity: 0.3;
+}
 .footer-text,
 .footer-fineprint {
-  opacity: 0.3;
+  opacity: 0.5;
+}
+
+.footer-main {
+  grid-area: main;
+}
+
+.footer-fineprint {
+  font-size: 0.75rem;
+  margin-top: 4em;
 }
 
 .social-list {
-  order: -1;
+  grid-area: social;
   list-style: none;
   padding: 0;
   margin: 0 0 2em;
   display: flex;
   justify-content: center;
 }
+
 .social-link {
   color: #000;
   font-size: 1.75rem;
@@ -90,31 +232,56 @@ strong {
 .social-link:hover {
   color: #777;
 }
-.footer-fineprint {
-  font-size: 0.75rem;
-  margin-top: 4em;
+
+@media (min-width: 600px) {
+  .footer {
+    grid-template-areas: ". main main social .";
+  }
+
+  .footer-main {
+    text-align: left;
+  }
+
+  .social-list {
+    justify-content: flex-end;
+  }
 }
-/* =====================
+
+/* ==================
     hero area
-======================= */
+===================== */
 
 .hero {
-  background-image: url(./img/hero-bg.jpg);
+  background-image: url(img/hero-bg.jpg);
+  background-size: cover;
+  background-position: bottom;
+  padding: 8em 0 4em;
   color: #fff;
-  padding: 4em 0;
 }
-
-/* .col-2 {
-  grid-column: 2/3;
-} */
 
 .hero > * {
-  grid-column: 2/3;
+  grid-column: 2 / -2;
 }
 
-/* =====================
+@media (min-width: 400px) {
+  .hero > * {
+    margin-right: 20%;
+  }
+}
+
+@media (min-width: 600px) {
+  .hero {
+    padding: 10em 0 6em;
+  }
+
+  .hero > * {
+    grid-column: 2 / span 2;
+  }
+}
+
+/* ==================
     info section
-======================= */
+===================== */
 
 .info {
   padding: 4em 0;
@@ -122,5 +289,15 @@ strong {
 }
 
 .col {
-  grid-column: 2/-2;
+  grid-column: 2 / -2;
+}
+
+@media (min-width: 600px) {
+  .col {
+    grid-column: span 1;
+  }
+
+  .col:first-child {
+    grid-column: 2 / span 1;
+  }
 }
