@@ -397,6 +397,7 @@ strong {
   .main-text {
     grid-column: 3 / span 2;
     grid-row: span 2;
+    margin-left: 1em;
   }
   .secondary-text {
     order: 1;
@@ -407,7 +408,6 @@ strong {
 
 form {
   display: grid;
-  margin-left: 1em;
 }
 
 label {
